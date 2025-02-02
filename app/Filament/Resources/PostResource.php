@@ -43,9 +43,10 @@ class PostResource extends Resource
 //                    ->collapsible()
                     ->schema([
 
-                    TextInput::make('title')->required(),
+                    TextInput::make('title')->required()
+                        ->rules(['max:25','min:4',]), // 'in:pending,in progress,completed'
 
-                    TextInput::make('slug')->required()->unique(),
+                    TextInput::make('slug')->required()->unique(ignoreRecord: true),
 
                     Select::make('category_id')
                         ->label('Category')
