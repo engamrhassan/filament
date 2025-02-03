@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
@@ -68,6 +69,13 @@ class PostResource extends Resource
                     Section::make('Meta')->schema([
                         TagsInput::make('tags')->required(),
                         Checkbox::make('is_published'),
+                    ]),
+
+                    Section::make('Authors')->schema([
+                        CheckboxList::make('authors')
+                            ->label('Co Authors')
+//                            ->multiple()
+                        ->relationship('authors', 'name')
                     ])
                 ])->columnSpan(1),
 
@@ -125,7 +133,7 @@ class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\AuthorsRelationManager::make()
         ];
     }
 
