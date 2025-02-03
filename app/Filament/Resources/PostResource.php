@@ -50,7 +50,9 @@ class PostResource extends Resource
 
                     Select::make('category_id')
                         ->label('Category')
-                        ->options(Category::all()->pluck('name', 'id')->toArray()),
+//                        ->searchable()
+                        ->relationship('category', 'name'), // better than use option
+//                        ->options(Category::all()->pluck('name', 'id')->toArray()),
 
                     ColorPicker::make('color'),
 
